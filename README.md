@@ -19,3 +19,4 @@ Approach:
 - For each node in nodesToEliminate, find its edges in edgeStartNodes and edgeEndNodes:
 	- if neighboring nodes are different, connect them
 	- if neighboring nodes are the same, delete both edges
+- Remove duplicate directed edges
