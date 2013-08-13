@@ -82,3 +82,13 @@ while couldHaveDuplicateEdges:
 print 'FINAL edgeStartNodes: ' + str(edgeStartNodes)
 print 'FINAL edgeEndNodes: ' + str(edgeEndNodes)
 
+# write to file
+writefilename = 'output.txt'
+wf = open(writefilename, 'w')
+for i in range(len(edgeStartNodes)):
+	line = edgeStartNodes[i] + '\t' + edgeEndNodes[i]
+	print line
+	wf.write(line + '\n')
+print 'Output written to ' + writefilename
+
+
