@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import sys
+from collections import Counter
 
 filename = sys.argv[1]
 
@@ -24,3 +25,13 @@ for line in f:
 
 print 'edgeStartNodes: ' + str(edgeStartNodes)
 print 'edgeEndNodes: ' + str(edgeEndNodes)
+
+uniqueEdgeStartNodes = [k for k,v in Counter(edgeStartNodes).items() if v==1]
+uniqueEdgeEndNodes = [k for k,v in Counter(edgeEndNodes).items() if v==1]
+
+print 'uniqueEdgeStartNodes: ' + str(uniqueEdgeStartNodes)
+print 'uniqueEdgeEndNodes: ' + str(uniqueEdgeEndNodes)
+
+nodesToEliminate = set(uniqueEdgeStartNodes).intersection(uniqueEdgeEndNodes)
+
+print 'nodesToEliminate: ' + str(nodesToEliminate)
