@@ -23,20 +23,12 @@ for line in f:
    	edgeStartNodes.append(nodes[0])
    	edgeEndNodes.append(nodes[1].rstrip('\n'))
 
-print 'edgeStartNodes: ' + str(edgeStartNodes)
-print 'edgeEndNodes: ' + str(edgeEndNodes)
-
 couldHaveDuplicateEdges = True
 while couldHaveDuplicateEdges:
 	uniqueEdgeStartNodes = [k for k,v in Counter(edgeStartNodes).items() if v==1]
 	uniqueEdgeEndNodes = [k for k,v in Counter(edgeEndNodes).items() if v==1]
 
-	print 'uniqueEdgeStartNodes: ' + str(uniqueEdgeStartNodes)
-	print 'uniqueEdgeEndNodes: ' + str(uniqueEdgeEndNodes)
-
 	nodesToEliminate = set(uniqueEdgeStartNodes).intersection(uniqueEdgeEndNodes)
-
-	print 'nodesToEliminate: ' + str(nodesToEliminate)
 
 	for node in nodesToEliminate:
 		try:
@@ -44,9 +36,6 @@ while couldHaveDuplicateEdges:
 			isEndNodeIndex = edgeEndNodes.index(node)
 		except ValueError: # this can happen in loop case where a node is already popped out of edge Start/End Nodes list
 	   		continue
-
-		print 'isStartNodeIndex: ' + str(isStartNodeIndex) + ' ' + edgeStartNodes[isStartNodeIndex] + ' ' + edgeEndNodes[isStartNodeIndex]
-		print 'isEndNodeIndex: ' + str(isEndNodeIndex) + ' ' + edgeStartNodes[isEndNodeIndex] + ' ' + edgeEndNodes[isEndNodeIndex]
 
 		if edgeStartNodes[isEndNodeIndex] != edgeEndNodes[isStartNodeIndex]: # non-loop case
 			edgeEndNodes[isEndNodeIndex] = edgeEndNodes[isStartNodeIndex]
@@ -64,23 +53,15 @@ while couldHaveDuplicateEdges:
 				edgeStartNodes.pop(isStartNodeIndex)
 				edgeEndNodes.pop(isStartNodeIndex)
 
-	print 'edgeStartNodes: ' + str(edgeStartNodes)
-	print 'edgeEndNodes: ' + str(edgeEndNodes)
-
 	# find duplicate edges
 	allEdges = zip(edgeStartNodes, edgeEndNodes)
 	allEdgesAfterRemovingDuplicates = list(set(allEdges))
-	print 'allEdges: ' + str(allEdges)
-	print 'allEdgesAfterRemovingDuplicates: ' + str(allEdgesAfterRemovingDuplicates)
 	if len(allEdges) == len(allEdgesAfterRemovingDuplicates): # there are no duplicates
 		couldHaveDuplicateEdges = False
 	else:
 		unzippedEdges = zip(*allEdgesAfterRemovingDuplicates)
 		edgeStartNodes = list(unzippedEdges[0])
 		edgeEndNodes = list(unzippedEdges[1])
-
-print 'FINAL edgeStartNodes: ' + str(edgeStartNodes)
-print 'FINAL edgeEndNodes: ' + str(edgeEndNodes)
 
 # write to file
 writefilename = 'output.txt'
