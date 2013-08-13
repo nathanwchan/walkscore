@@ -40,18 +40,28 @@ for node in nodesToEliminate:
 	try:
 		isStartNodeIndex = edgeStartNodes.index(node)
 		isEndNodeIndex = edgeEndNodes.index(node)
-	except ValueError as e:
-   		print 'Error: ' + str(e)
-   		sys.exit(0)
+	except ValueError: # this can happen in loop case where a node is already popped out of edge Start/End Nodes list
+   		continue
 
 	print 'isStartNodeIndex: ' + str(isStartNodeIndex) + ' ' + edgeStartNodes[isStartNodeIndex] + ' ' + edgeEndNodes[isStartNodeIndex]
 	print 'isEndNodeIndex: ' + str(isEndNodeIndex) + ' ' + edgeStartNodes[isEndNodeIndex] + ' ' + edgeEndNodes[isEndNodeIndex]
-	
-	if edgeStartNodes[isEndNodeIndex] != edgeEndNodes[isStartNodeIndex]:
+
+	if edgeStartNodes[isEndNodeIndex] != edgeEndNodes[isStartNodeIndex]: # non-loop case
 		edgeEndNodes[isEndNodeIndex] = edgeEndNodes[isStartNodeIndex]
 		edgeStartNodes.pop(isStartNodeIndex)
 		edgeEndNodes.pop(isStartNodeIndex)
+	else: # loop case
+		if isStartNodeIndex > isEndNodeIndex: # need to pop larger index first, otherwise could get index out of range
+			edgeStartNodes.pop(isStartNodeIndex)
+			edgeEndNodes.pop(isStartNodeIndex)
+			edgeStartNodes.pop(isEndNodeIndex)
+			edgeEndNodes.pop(isEndNodeIndex)
+		else:
+			edgeStartNodes.pop(isEndNodeIndex)
+			edgeEndNodes.pop(isEndNodeIndex)
+			edgeStartNodes.pop(isStartNodeIndex)
+			edgeEndNodes.pop(isStartNodeIndex)
 
-	print 'edgeStartNodes: ' + str(edgeStartNodes)
-	print 'edgeEndNodes: ' + str(edgeEndNodes)
+print 'edgeStartNodes: ' + str(edgeStartNodes)
+print 'edgeEndNodes: ' + str(edgeEndNodes)
 
