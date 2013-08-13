@@ -35,3 +35,23 @@ print 'uniqueEdgeEndNodes: ' + str(uniqueEdgeEndNodes)
 nodesToEliminate = set(uniqueEdgeStartNodes).intersection(uniqueEdgeEndNodes)
 
 print 'nodesToEliminate: ' + str(nodesToEliminate)
+
+for node in nodesToEliminate:
+	try:
+		isStartNodeIndex = edgeStartNodes.index(node)
+		isEndNodeIndex = edgeEndNodes.index(node)
+	except ValueError as e:
+   		print 'Error: ' + str(e)
+   		sys.exit(0)
+
+	print 'isStartNodeIndex: ' + str(isStartNodeIndex) + ' ' + edgeStartNodes[isStartNodeIndex] + ' ' + edgeEndNodes[isStartNodeIndex]
+	print 'isEndNodeIndex: ' + str(isEndNodeIndex) + ' ' + edgeStartNodes[isEndNodeIndex] + ' ' + edgeEndNodes[isEndNodeIndex]
+	
+	if edgeStartNodes[isEndNodeIndex] != edgeEndNodes[isStartNodeIndex]:
+		edgeEndNodes[isEndNodeIndex] = edgeEndNodes[isStartNodeIndex]
+		edgeStartNodes.pop(isStartNodeIndex)
+		edgeEndNodes.pop(isStartNodeIndex)
+
+	print 'edgeStartNodes: ' + str(edgeStartNodes)
+	print 'edgeEndNodes: ' + str(edgeEndNodes)
+
